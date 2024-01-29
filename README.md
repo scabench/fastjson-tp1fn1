@@ -4,9 +4,9 @@ The project contains a [fastjson](https://mvnrepository.com/artifact/com.alibaba
 
 The vulnerability occurs as markup in JSON is interpreted as Java beans, i.e. classes are instantiated and properties are 
 set by executing setter methods. This is done using reflection. If a class is in the classpath where setters 
-can trigger behaviour like executing code (in the example, this class is `Trigger`), then this can be exploited. 
+can trigger behaviour like executing code (in the example, this class is `Trigger`, the respective input is `CVE-2022-25845.json`), then this can be exploited. 
 
-The interesting part is the use of reflection here, show in the below stacktrace from running the included test used to demonstrate the
+The interesting part is the use of reflection here, as shown in the below stacktrace from running the included test used to demonstrate the
 vulnerability. 
 
 ```java
@@ -29,7 +29,7 @@ confirmCVE202225845:39, ConfirmVulnerabilitiesTests (scabench)
 
 Standard meta-data based SCA have no problem identifying the vulnerability, this is "business-as-usual". However, callgraph based tools
 are likely to miss it as callgraph constructions generally fail to model reflective calls. In this sense, this is 
-both a true positive and a false negative, depending on the analyses used. 
+both a true positive and a false negative, depending on the analyses being used. 
 
 Note that there is a proof-of-vulnerability test to demonstrate the vulnerability, this test (and therefore the build with `mvn test`)
 fails. See [https://github.com/scabench/jsonorg-tp1](https://github.com/scabench/jsonorg-tp1) for how the test works.
